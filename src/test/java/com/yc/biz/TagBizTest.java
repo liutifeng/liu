@@ -17,8 +17,7 @@ public class TagBizTest {
 	@Test
 	public void testFindByCondition() throws Exception {
 		System.out.println(biz.findByCondition(null));
-		System.out.println(">>>>>>>.....t");
-		System.out.println("22222222222222222222");
+		System.out.println(".....................new branch");
 	}
 
 	@Test
