@@ -18,7 +18,7 @@ public class TagBizTest {
 	public void testFindByCondition() throws Exception {
 		System.out.println(biz.findByCondition(null));
 		System.out.println(">>>>>>> branch 'master' of https://github.com/liutifeng/liu.git");
-		System.out.println("22222222222222222222");
+		System.out.println("222222222111122222222222");
 	}
 
 	@Test
