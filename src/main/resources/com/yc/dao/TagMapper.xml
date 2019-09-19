@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 映射文件
+  namespace:命名空间
+  resultType:结果类型
+  #{id}:从传递过来的参数中取得的值
+   -->
+<mapper namespace="com.yc.dao.TagMapper">
+	<!-- public List<TagPO> findByTagName(List<String> tags); -->
+	<select id="findByTagName" resultType="tag">
+		select * from tag where t_name in
+		<foreach item="tname" index="index" collection="list" separator="," open="(" close=")">
+	 		#{tname}
+	 	</foreach>
+	</select>
+
+	<!-- public List<TagPO> findByCondition(TagPO tagPO); -->
+	<select id="findByCondition" resultType="tag">
+		select * from tag
+	</select>
+	
+	
+
+
+	<!-- public boolean addTag(List<TagPO> tags); -->
+	 <insert id="addTag">
+	 	insert into tag (t_name,t_count) values
+	 	<foreach item="tag" collection="list" separator="," >
+	 		(#{tag.tName},#{tag.tCount})
+	 	</foreach>
+	 </insert>
+	
+	<!-- public boolean updateTagCountByIds(List<Integer> ids); -->
+	<update id="updateTagCountByIds">
+	update tag set t_count=t_count+1 where t_id in
+		<foreach collection="list" item="tid" open="(" close=")" separator=",">
+			#{tid}
+		</foreach>
+	</update>
+	
+	
+	
+</mapper>

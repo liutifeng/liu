@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!-- 
+properties:用于引入外部properties文件中内容
+	resource：类路径下的资源
+	url：引用网络路径或磁盘路径下的资源
+ -->
+<properties resource="db.properties">
+
+</properties>
+
+
+<!-- <settings></settings> -->
+<settings>
+<!-- 是否开启自动驼峰命名规则（camel case）映射 -->
+<setting name="mapUnderscoreToCamelCase" value="true"/>
+<!-- 开启二级缓存  全局配置 -->
+<setting name="cacheEnabled" value="true"/>
+<!-- 设置延迟加载的全局开关  开启延迟加载 -->
+<setting name="lazyLoadingEnabled" value="true"/>
+<!-- 防止升降版本带来的不同 -->
+<setting name="aggressiveLazyLoading" value="false"/>
+</settings>
+
+<!-- 使用别名 -->
+<typeAliases>
+	<!-- 给单独类配置一个别名 -->
+	<typeAlias type="com.yc.po.FavoritePO" alias="favorite"/>
+	<typeAlias type="com.yc.po.TagPO" alias="tag"/>
+	<!-- 给指定的包名下所有类名别名，默认每个类的别名就是类名，首字母小写 -->
+	<!-- 
+	<package name="com.yc.po"></package>
+	 -->
+	
+</typeAliases>
+<!-- environments：环境  mybatis可以配置多种环境，default指定使用的某种环境 -->
+ <environments default="dev_mysql">
+ 	<environment id="dev_mysql">
+ 	<!-- 数据源配置 -->
+ 		<transactionManager type="JDBC"/>
+ 		<dataSource type="POOLED">
+ 			<property name="driver" value="${driver}"/>
+ 			<property name="url" value="${url}"/>
+ 			<property name="username" value="${user}"/>
+ 			<property name="password" value="${password}"/>
+ 		</dataSource>
+ 	</environment>
+ 	<!-- 使用oracle连接方式 -->
+ 	<environment id="dev_oracle">
+ 	<!-- 数据源配置 -->
+ 		<transactionManager type="JDBC"/>
+ 		<dataSource type="POOLED">
+ 			<property name="driver" value="${oracle.driver}"/>
+ 			<property name="url" value="${oracle.url}"/>
+ 			<property name="username" value="${oracle.user}"/>
+ 			<property name="password" value="${oracle.password}"/>
+ 		</dataSource>
+ 	</environment>
+ </environments>
+ <databaseIdProvider type="DB_VENDOR">
+  <property name="SQL Server" value="sqlserver"/>
+  <property name="DB2" value="db2"/>
+  <property name="Oracle" value="oracle" />
+  <property name="MySQL" value="mysql" />
+</databaseIdProvider>
+ <!-- 引用配置的映射文件
+ 	sql语句编写的映射文件一定要注册全局配置文件中
+  -->
+  <mappers>
+  		<!-- <mapper resource="com/yc/dao/UserMapper.xml"/> -->
+  		<!-- 批量注册 -->
+  		<package name="com.yc.dao"/>
+  </mappers>
+</configuration>

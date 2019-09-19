@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+.menu{
+	float: left;
+	margin-top: 50px;
+	width: 200px;
+	height: 500px;
+}
+
+.content{
+	float: left;
+	margin-top: 50px;
+	width: 400px;
+	height: 500px;
+	background: #ccc;
+}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+	<div class="menu">
+		<ul class="tags">
+			
+			
+		</ul>
+	</div>
+	<div class="content">
+		
+	</div>
+</body>
+<script type="text/javascript">
+$(function(){
+	// 默认加载所有的分类信息
+	$.post("tag.action",{op:"findAll"},function(data){
+		console.log(data);
+		var arr = $.parseJSON(data);
+		console.log(arr);
+		showTags(arr);
+	});
+});
+
+// 显示所有标签
+function showTags(arr){
+	var str = '<li><a href="javascript:add()">添加收藏</a></li>'+
+			'<li><a href="javascript:findAll()">全部</a></li>'+
+			'<li><a href="javascript:findBynotTagName()">未分类</a></li>';
+	for(var i=0;i<arr.length;i++){
+		str+='<li><a href="javascript:findByName('+arr[i].tName+')">'+arr[i].tName+'</a></li>'
+	}
+	
+	$(".menu .tags").html(str);
+}
+
+
+// 全部
+function findAll(){
+	$.post("favorite.action",{op:"findAll"},function(data){
+		var json = $.parseJSON(data);
+		showfavorite(json);
+	});
+}
+
+// 显示收藏信息
+function showfavorite(json){
+	var str='';
+	for(var i=0;i<json.length;i++){
+		str+='<a href="'+json[i].fUrl+'">'+json[i].fLable+'</a><br/>';
+	}
+	$(".content").html(str);
+}
+
+// 未分类
+function findBynotTagName(){
+	$.post("favorite.action",{op:"findBynotTagName"},function(data){
+		var json = $.parseJSON(data);
+		console.log(json);
+	});
+}
+
+
+function add(){
+	window.open('favorite.html', '', 'width=400,height=300');
+}
+</script>
+</html>

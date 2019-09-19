@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- 映射文件
+  namespace:命名空间
+  resultType:结果类型
+  #{id}:从传递过来的参数中取得的值
+   -->
+<mapper namespace="com.yc.dao.FavoriteMapper">
+	
+	<!-- public boolean addFav(FavoritePO favoritePO); -->
+	<insert id="addFav" parameterType="favorite">
+		insert into favorite (f_lable,f_url,f_tags,f_desc) 
+			values(#{fLable},#{fUrl},#{fTags},#{fDesc})
+	</insert>
+	
+	<!-- public List<FavoritePO> findByTagName(String tagName); -->
+	<select id="findByTagName" resultType="favorite">
+		<bind name="tagname" value="'%'+_parameter+'%'"/>
+		select * from favorite where f_tags like #{tagname}
+	</select>
+	
+	<!-- public List<FavoritePO> findByCondition(FavoritePO favoritePO); -->
+	<select id="findByCondition" resultType="favorite">
+		select * from favorite
+	</select>
+	
+	 
+</mapper>

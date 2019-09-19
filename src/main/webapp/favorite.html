@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+ul,li{
+list-style: none;
+}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+<form>
+	<ul>
+		<li>名称：<input name="fLabel" type="text"/></li>
+		<li>链接：<input name="fUrl" type="text"/></li>
+		<li>标签：<input name="fTags" type="text"/></li>
+		<li>描述：<textarea name="fDesc"></textarea></li>
+		<li>
+			<input type="button" value="取消" onclick="window.close()"/>
+			<input type="button" value="提交" onclick="window.close()"/>
+		</li>
+	</ul>
+</form>
+<script type="text/javascript">
+function add(){
+	// 获取页面值
+	var tLabel = $("form input[name='fLabel']").val();
+	var fUrl = $("form input[name='fUrl']").val();
+	var fTags = $("form input[name='fTags']").val();
+	var fDesc = $("form textarea[name='fDesc']").val();
+	
+	$.post("favorite.action",{op:"add",tLabel:tLabel,fUrl:fUrl,fTags:fTags,fDesc:fDesc},function(){
+		if(data==1){
+			window.close();
+		}else{
+			alert("添加失败");
+		}
+	});
+}
+
+
+
+
+</script>
+
+</body>
+</html>
